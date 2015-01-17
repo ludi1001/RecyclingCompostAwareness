@@ -4,6 +4,9 @@ body{
 	font-size: 20px;
 	color: #FFFFFF;
 	background-color: #107100;
+	background-image: url("leaf-border.jpg");
+	background-repeat: repeat-y;
+	background-position: 10% 0%;
 	font-family: helvetica;
 }
 .btn {
@@ -11,7 +14,7 @@ body{
   color: #FFFFFF;
   display: inline-block;
   border-style: ridge;
-  border-radius: 3px;
+  border-radius: 5px;
   border-color: #42ff23;
   font-family: helvetica;
   line-height: 2.5em;
@@ -19,7 +22,17 @@ body{
   text-decoration: none;
 }
 
+
 #main-container {
-	width:800px;
-	margin: 0 auto;
+	width:500px;
+	margin-top: 5px;
+	margin-left: 33%;
+}
+
+#left {
+	width: 100px;
+	align: left;
+	background: black;
+float:left;
+height:100%;
 }
