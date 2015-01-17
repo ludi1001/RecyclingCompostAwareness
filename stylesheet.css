@@ -24,9 +24,10 @@ body{
 
 
 #main-container {
-	width:500px;
-	margin-top: 5px;
-	margin-left: 33%;
+	width:55%;
+	margin-top: 50px;
+	margin-left: 30%;
+	margin-righ: 15%;
 }
 
 #left {
