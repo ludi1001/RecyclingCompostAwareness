@@ -1,1 +1,66 @@
-hi there
+<!DOCTYPE html>
+<HTML>
+	<head>
+		<title>Gingerbread Home</title>
+		<link rel="shortcut icon" href="/static/img/gbh.ico">
+		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
+   
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    
+    <script type="text/javascript" src="/static/js/taggle.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/static/js/util.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+	<script type="text/javascript">
+		$(document).ready(function()) {
+            setupAjax();
+            
+            var geocoder = new google.maps.Geocoder();
+			//var tags = new Taggle('tags');
+            $("#real-form").submit(function() {
+                var address = $("#id_address").val();
+                geocoder.geocode({
+                    address: address
+                }, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                       var request = {
+                            lat: results[0].geometry.location.lat,
+                            lng: results[0].geometry.location.lng,
+                            
+                       $.ajax({
+                            url: '/vendor/update',
+                            type: 'POST',
+                            data: JSON.stringify(request),
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json'
+                        }).done(function(vendors) {
+                            location.reload(true);
+                        });
+                    } else {
+                        $("#error").html("Cannot find address (" + status + ")");
+                    }
+                });
+                return false;
+            });
+		}};
+	</script>
+	</head>
+
+	<body>
+		<div id = "form">
+		<form id="real-form" method="post">
+			Store Name: <input type="text" id="id_name" name="name" class="form-control" value="{{ vendor.name|default_if_none:'' }}">
+			Phone Number: <input type="text" id="phone" name="phone" class="form-control" value="{{ vendor.phone|default_if_none:'' }}">
+			Address: <input type="text" id="id_address" name="address" class="form-control" value="{{ vendor.address|default_if_none:'' }}">
+			Description: <textarea id="id_desc" name="desc" class="form-control">{{ vendor.desc|default_if_none:'' }}</textarea>
+			<!--<div id="tags" class="input textarea clearfix"></div>-->
+			<button type="submit" class="btn">Update</submit> </button>
+		</form>
+		
+		<br>
+		<a href="FAQ.html">FAQs</a> | <a href="/"> Bread Crumbs Home</a>
+		
+		</div>
+	</body>
+</HTML>

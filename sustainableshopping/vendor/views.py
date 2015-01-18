@@ -7,7 +7,30 @@ from django.contrib.auth.models import User
 # Create your views here.
 @login_required
 def home(request):
-    return render(request, 'vendorhome.html')
+    vendor = Vendor.objects.get(user=request.user)
+    return render(request, 'vendorhome.html', { 'vendor': vendor })
+ 
+@login_required 
+def update(request):
+    try:
+        obj = json.loads(request.body.decode('utf-8'))
+        vendor = Vendor.objects.get(user=request.user)
+        vendor.name = obj['name']
+        vendor.phone = obj['phone']
+        vendor.address = obj['address']
+        vendor.desc = obj['desc']
+        vendor.lat = obj['lat']
+        vendor.lng = obj['lng']
+        
+        for tag in obj['tags']:
+            vendor.tag_set.add(Tag.objects.get(name=tag))
+        vendor.save()
+        return HttpResponse('{"error":"success"}',content_type='application/json')
+    except KeyError:
+        return HttpResonse('{"error":"Bad format"}',content_type='application/json')
+    except ValueError:
+        return HttpResponse('{"error":"Malformed JSON"}',content_type='application/json')
+    
     
 def signup(request):
     form = SignupForm()

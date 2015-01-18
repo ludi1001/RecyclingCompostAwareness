@@ -3,7 +3,7 @@
   <head>
     <style type="text/css">
       html, body, #map-canvas { width:100%; height: 480px; margin: 0; padding: 0;}
-      #search-range-text { width: 30px; text-align: right }
+      #search-range-text { width: 30px; text-align: right; padding-left:8px }
       #tags {
         width:300px;
         padding:0;
@@ -17,12 +17,44 @@
       #address {
         height:30px;
         width:400px;
+        padding-left:8px;
+        margin-top:4px;
       }
       .vendor .details .label {
         text-align:right;
         font-weight:bold;
       }
-      
+      #search-form {
+        width: 960px;
+        margin: 0 auto;
+      }
+      .container {
+        text-align:center;
+      }
+      #search-range {
+        position:relative;
+        top:10px;
+        padding-bottom:8px;
+      }
+      #tags-container {
+        width:300px;
+        margin: 0 auto;
+        z-index: -1;
+      }
+      #submit {
+        margin-bottom:10px;
+        padding:10px;
+        background-color:white;
+        font-family: Roboto-Thin,Roboto,sans-serif;
+        color: #8a8a8a;
+        font-weight:200;
+        border: thin lightgrey solid;
+        font-size:14px;
+      }
+      #submit:hover {
+        background-color:#ddd;
+        cursor:pointer;
+      }
     </style>
     <link rel="stylesheet" type="text/css" href="/static/css/taggle.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/projects.min.css">
@@ -117,18 +149,6 @@
                 vendor.children(".details").fadeToggle();
                 return false;
             });
-            
-            /*$(".vendor").each(function() {
-                var vendor = $(this);
-                var link = vendor.children(".name a");
-                console.log("asdf");
-                console.log(link);
-                link.click(function() {
-                    console.log('hi');
-                    vendor.children(".details").fadeToggle();
-                });
-                return false;
-            });*/
         });
         
         function getFakeData() {
@@ -220,16 +240,17 @@
   <div class="container">
       <form id="search-form">
         {% csrf_token %}
-        <input id="address" type="text" placeholder="Address">
-        <input type="submit" value="Go!">
-      </form>
-      <div id="error"></div>
-
-      <form id="filters">
-        <input id="search-range" type="range" min="1" max="100" value="20"> <input id="search-range-text" type="text" value="20" maxlength="3"> mi<br>
+        <table>
+        Search near <br> <input id="address" type="text" placeholder="Address"> <br>
+      
+        within <input id="search-range" type="range" min="1" max="100" value="20">&nbsp;&nbsp;<input id="search-range-text" type="text" value="20" maxlength="3"> mi<br>
         
-        <div id="tags" class="input textarea clearfix"></div>
-        <input type="submit" value="Update">
+        
+        for food that is <div id="tags-container"><div id="tags" class="input textarea clearfix"></div></div>
+        
+       <!-- <button class="btn" id="submit">Go!</button>-->
+        <input type="submit" value="Let's go!" id="submit">
+        <div id="error"></div>
       </form>
   </div>
   <div id="map-canvas"></div>
