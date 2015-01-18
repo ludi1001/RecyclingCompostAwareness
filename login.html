@@ -49,10 +49,15 @@
 		// When the user has been logged in successfully
 		function onLoginSuccessful() {
 			// Now, save the token in a cookie
+            console.log(UserApp.global.token);
+            console.log(document.cookie);
+            document.cookie = "tok=" + UserApp.global.token +";path=/";
 			Cookies.set("ua_session_token", UserApp.global.token);
+            console.log(Cookies.get("ua_session_token"));
+            console.log(document.cookie);
 			
 			// Redirect the user to the index page
-			window.location.href = "vendors.html";
+			//window.location.href = "vendors.html";
 			showLoader(false);
 		}
 	</script>
