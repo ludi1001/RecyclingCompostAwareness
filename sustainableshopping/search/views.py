@@ -6,6 +6,9 @@ import math
 
 # Create your views here.
 def home(request):
+    return render(request, 'index.html')
+    
+def search(request):
     return render(request, 'map.html')
 
 def calculate_dist(loc1lat, loc1lng, loc2lat, loc2lng):
@@ -17,17 +20,20 @@ def calculate_dist(loc1lat, loc1lng, loc2lat, loc2lng):
     dlambda = (loc2lng - loc1lng) / 180 * math.pi
     a = math.sin(dphi/2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda/2) ** 2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-    print(R*c)
     return R * c 
  
-def search(request):
+def find_vendors(request):
     try:
         obj = json.loads(request.body.decode('utf-8'))
         max_dist = float(obj['range'])
         
-        vendors = []
+
+        vendor_results = Vendor.objects.all()
+        for tag in obj['tags']:
+            vendor_results = vendor_results.filter(tag__name=tag)
             
-        for vendor in Vendor.objects.all():
+        vendors = []         
+        for vendor in vendor_results:
             dist = calculate_dist(obj['lat'], obj['lng'], vendor.lat, vendor.lng)
             if dist <= max_dist:
                 vendors.append({
