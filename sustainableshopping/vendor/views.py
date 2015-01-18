@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from vendor.forms import *
 from vendor.models import *
+import json
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -15,6 +17,7 @@ def update(request):
     try:
         obj = json.loads(request.body.decode('utf-8'))
         vendor = Vendor.objects.get(user=request.user)
+        print(obj)
         vendor.name = obj['name']
         vendor.phone = obj['phone']
         vendor.address = obj['address']

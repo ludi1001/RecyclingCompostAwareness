@@ -11,8 +11,6 @@ class Vendor(models.Model):
     lng = models.FloatField(null=True, blank=True)
     user = models.OneToOneField(User)
     
-    def __str__(self):    
-        return self.name
     class Meta:
         ordering = ['name']
         

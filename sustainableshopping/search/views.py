@@ -35,6 +35,7 @@ def find_vendors(request):
         vendors = []         
         for vendor in vendor_results:
             dist = calculate_dist(obj['lat'], obj['lng'], vendor.lat, vendor.lng)
+            print(dist)
             if dist <= max_dist:
                 vendors.append({
                     'name': vendor.name,
