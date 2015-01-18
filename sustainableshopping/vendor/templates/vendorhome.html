@@ -3,8 +3,22 @@
 	<head>
 		<title>Gingerbread Home</title>
 		<link rel="shortcut icon" href="/static/img/gbh.ico">
+            <link rel="stylesheet" type="text/css" href="/static/css/taggle.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/projects.min.css">
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        
         <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
+     <style type="text/css">
+        #tags {
+            width: 45%;
+            margin: 0 auto;
+        }
+        html, body {
+            margin:0;
+            padding:0;
+            height:100%;
+        }
+     </style>
    
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     
@@ -17,13 +31,19 @@
             setupAjax();
             
             var geocoder = new google.maps.Geocoder();
-			//var tags = new Taggle('tags');
             $("#real-form").submit(function() {
                 var address = $("#id_address").val();
                 geocoder.geocode({
                     address: address
                 }, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
+                       var tags = [];
+                        $(".taggle_list li").each(function(index) {
+                            tags.push($(this).children(".taggle_text").html());
+                        });
+                        if(tags[tags.length - 1] === undefined)
+                            tags = tags.slice(0, tags.length - 1);
+                            
                        var request = {
                             name: $("#id_name").val(),
                             phone: $("#id_phone").val(),
@@ -31,7 +51,7 @@
                             desc: $("#id_desc").val(),
                             lat: results[0].geometry.location.lat(),
                             lng: results[0].geometry.location.lng(),
-                            tags: []
+                            tags: tags
                        };    
                        $.ajax({
                             url: '/vendor/update',
@@ -53,25 +73,48 @@
                 window.location.href = "/vendor/logout";
                 return false;
             });
+            
+            var allowedTags = ['organic','certified']
+            var tags = new Taggle('tags', {
+                allowedTags: allowedTags,
+                {% if tags %}
+                tags: [{% for tag in tags %} {% if not forloop.first %}, {% endif %} "{{ tag.name }}" {% endfor %}]
+                {% endif %}
+            });
+            var container = tags.getContainer();
+            var input = tags.getInput();
+
+            $(input).autocomplete({
+                source: allowedTags,
+                appendTo: container,
+                position: { at: "left bottom", of: container },
+                select: function(event, data) {
+                    event.preventDefault();
+                    //Add the tag if user clicks
+                    if (event.which === 1) {
+                        tags.add(data.item.value);
+                    }
+                }
+            });
 		});
 	</script>
 	</head>
 
 	<body>
-		<div id = "form">
 		<form id="real-form" method="post">
             {% csrf_token %}
 			Store Name: <input type="text" id="id_name" name="name" class="form-control" value="{{ vendor.name|default_if_none:'' }}">
 			Phone Number: <input type="text" id="id_phone" name="phone" class="form-control" value="{{ vendor.phone|default_if_none:'' }}">
 			Address: <input type="text" id="id_address" name="address" class="form-control" value="{{ vendor.address|default_if_none:'' }}">
 			Description: <textarea id="id_desc" name="desc" class="form-control">{{ vendor.desc|default_if_none:'' }}</textarea>
-			<!--<div id="tags" class="input textarea clearfix"></div>-->
+			Tags: <div id="tags" class="input textarea clearfix"></div>
+            <br><br><br>
 			<button type="submit" class="btn">Update </button> <button id="logout" class="btn">Logout</button>
 		</form>
 		
 		<br>
 		<a href="FAQ.html">FAQs</a> | <a href="/"> Bread Crumbs Home</a>
 		
-		</div>
+	
 	</body>
 </HTML>

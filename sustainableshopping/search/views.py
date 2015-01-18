@@ -47,7 +47,7 @@ def find_vendors(request):
                     'dist': dist
                 })
         
-        
+        vendors = sorted(vendors, key=lambda vendor: vendor['dist'])
         print(vendors)
         return HttpResponse(json.dumps(vendors),content_type='application/json')
     except KeyError:

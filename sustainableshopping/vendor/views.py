@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 @login_required
 def home(request):
     vendor = Vendor.objects.get(user=request.user)
-    return render(request, 'vendorhome.html', { 'vendor': vendor })
+    return render(request, 'vendorhome.html', { 'vendor': vendor, 'tags': vendor.tag_set.all() })
  
 @login_required 
 def update(request):
