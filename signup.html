@@ -1,69 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="leaf.ico">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 
-	<title>Vendors Sign Up!</title>
-
-	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap-theme.min.css">
-
-	<!-- Custom styles -->
-	<link rel="stylesheet" href="https://app.userapp.io/css/demo/tutorial.css">
-	
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<script src="https://app.userapp.io/js/userapp.client.js"></script>
-	<script src="common.js"></script>
-	<script>
-		// Function to show and hide the loader anim
-		function showLoader(show) {
-			document.getElementById("loader").style.display = (show ? "block" : "none");
-		}
-
-		function signup() {
-			// Show the loader
-			showLoader(true);
-
-			// This will sign up the user
-			UserApp.User.save({
-				login: document.getElementById("username").value,
-				first_name: document.getElementById("name").value,
-				email: document.getElementById("email").value,
-				password: document.getElementById("password").value
-			}, function(error, user) {
-				if (error) {
-					alert("Error: " + error.message);
-				} else {
-					alert("Thanks for signing up!");
-					
-					// Redirect to login page
-					window.location.href = "login.html";
-				}
-
-				showLoader(false);
-			});
-			
-			return false;
-		}
-	</script>
+	<title>Gingerbread House: New Gingerbread Person</title>
 </head>
+
 <body>
-	<div class="container" style="text-align: center;">
-		<form class="form" onsubmit="return signup()">
-			<h2 class="form-heading">Sign up for MyApp</h2>
-			<div class="form-fields">
-				<input id="name" type="text" class="form-control" placeholder="Name" autofocus>
-				<input id="username" type="text" class="form-control" placeholder="Username" required>
-				<input id="email" type="text" class="form-control" placeholder="Email address" required>
-				<input id="password" type="password" class="form-control" placeholder="Password" required>
-			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Create my account</button>
-			<img id="loader" src="img/ajax-loader.gif" style="display: none; margin: 30px auto;">
-		</form>
-		<a href="login.html">Log in</a>
-	</div> 
+	<div id="form">
+		<h2 class="form-heading">Sign up for Gingerbread House: Vendor Store Front</h2>
+			Name: <input id="name" type="text" class="form-control" placeholder="Name" autofocus>
+			Email: <input id="email" type="text" class="form-control" placeholder="Email Address" required>
+			Password: <input id="password" type="password" class="form-control" placeholder="Password" required>
+			Confirm Password: <input id="password" type="password" class="form-control" placeholder="Password" required>
+		<button class="btn" type="submit">Create my account</button>
+		<br>
+	</form>
+	Already have an account? <a href="login.html">Log in</a> <br>
+	<a href="login.html">Gingerbread Home</a> | <a href="FAQ.html">FAQs</a> | <a href="index.html">Bread Crumbs Home</a>
+	</div>
 </body>
 </html>
