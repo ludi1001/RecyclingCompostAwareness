@@ -3,12 +3,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Vendor(models.Model):
-    name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=15)
-    address = models.CharField(max_length=200)
-    desc = models.TextField()
-    lat = models.FloatField()
-    lng = models.FloatField()
+    name = models.CharField(max_length=100, null=True, blank=True)
+    phone = models.CharField(max_length=15, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    desc = models.TextField(null=True, blank=True)
+    lat = models.FloatField(null=True, blank=True)
+    lng = models.FloatField(null=True, blank=True)
     user = models.OneToOneField(User)
     
     def __str__(self):    

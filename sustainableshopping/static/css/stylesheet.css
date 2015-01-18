@@ -4,7 +4,7 @@ body{
 	font-size: 20px;
 	color: #FFFFFF;
 	background-color: #107100;
-	background-image: url("/static/leaf-border.jpg");
+	background-image: url("/static/img/leaf-border.jpg");
 	background-repeat: repeat-y;
 	background-position: 10% 0%;
 	font-family: helvetica;
@@ -27,13 +27,22 @@ body{
 	width:55%;
 	margin-top: 50px;
 	margin-left: 30%;
-	margin-righ: 15%;
+	margin-right: 15%;
 }
 
-#left {
-	width: 100px;
-	align: left;
-	background: black;
-float:left;
-height:100%;
+#form {
+	width:65%;
+	margin-top: 50px;
+	margin-left: 30%;
+	margin-right: 15%;
+	font-size: 15px;
+}
+
+.form-control {
+	width: 45%;
+	margin: 5px auto;
+}
+
+a {
+	color: #42ff23;
 }
