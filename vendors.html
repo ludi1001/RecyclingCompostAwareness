@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <HTML>
 	<head>
-		<title>Hi friend</title>
+		<title>Gingerbread Home</title>
+		<link rel="shortcut icon" href="gbh.ico">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+   
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    
+    <script src="js/taggle.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<script type="text/javascript">
+		$(document).ready(function()) {
+			//var tags = new Taggle('tags');
+		}};
+	</script>
 	</head>
 
 	<body>
-		<h1>
-			Welcome, 
-			<br>
-			(I know there is a way to insert the user name but I can't figure it out)
-		</h1>
-
-
-		<h2>
-			we now have log in capabilities, now we need to figure out how one can
-			add entries.
-		</h2>
+		<div id = "form">
+		<form method="post">
+			Store Name: <input type="text" id="id_name" name="name" class="form-control">
+			Phone Number: <input type="text" id="phone" name="phone" class="form-control">
+			Address: <input type="text" id="id_address" name="address" class="form-control">
+			Description: <textarea id="id_desc" name="desc" class="form-control"></textarea>
+			<!--<div id="tags" class="input textarea clearfix"></div>-->
+			<button type="submit" class="btn">Update</submit> </button>
+		</form>
+		
+		<br>
+		<a href="FAQ.html">FAQs</a> | <a href="index.html"> Bread Crumbs Home</a>
+		
+		</div>
 	</body>
 </HTML>

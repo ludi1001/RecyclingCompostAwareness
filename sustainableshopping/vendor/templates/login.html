@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<title>Gingerbread House: Vendor Homepage</title>
-		<link rel="shortcut icon" href="/static/img/leaf.ico">
+		<link rel="shortcut icon" href="/static/img/gbh.ico">
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
 	</head>
@@ -23,7 +23,6 @@
         {% endif %}
 
 		<form class="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
-			<br>
             {% csrf_token %}
 			<h2 class="form-heading">Vendor Login</h2>
 			<div class="form-fields">
