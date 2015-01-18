@@ -68,7 +68,7 @@
       #vendor-list td.label {
         padding-right: 5px;
       }
-      #vendor-list .name a {
+      .name a {
         color:#107100;
         font-weight:800;
       }
@@ -141,7 +141,7 @@
                 return false;
             });
             
-            var allowedTags = ['organic','certified']
+            var allowedTags = ['organic','certified', 'local', 'community farm', 'pasture raised', 'organic feed'];
             var tags = new Taggle('tags', {
                 allowedTags: allowedTags
             });
@@ -223,10 +223,13 @@
                     //add vendor marker
                     var vendorMarker = new google.maps.Marker({
                         map: map,
-                        position: new google.maps.LatLng(vendor.lat, vendor.lng)
+                        position: new google.maps.LatLng(vendor.lat, vendor.lng),
+                        title: vendor.name
                     });
                     vendorMarkers.push(vendorMarker);
                     
+  
+                                        
                     //append to list
                     var html = [];
                     html.push("<li class='vendor'>");
@@ -243,6 +246,14 @@
                     html.push("</div>");
                     html.push("</li>");
                     $("#vendor-list").append($(html.join("")));
+                    
+                    
+                    var infowindow = new google.maps.InfoWindow({
+                         content: html.join("")
+                    });
+                    google.maps.event.addListener(vendorMarker, 'click', function() {
+                        infowindow.open(map,vendorMarker);
+                    });
                 });
                 $(".vendor .details").hide();
                 $(".vendor .name a").on("click", function() {
